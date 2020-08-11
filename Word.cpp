@@ -14,6 +14,8 @@
 
 Word::Word(const std::string text_in)
 : text(text_in) {
+    
+    // Assign a score to the word based on its length
     size_t len = text.length();
     if(len < 5) {
         score = 1;
@@ -30,6 +32,7 @@ Word::Word(const std::string text_in)
     else {
         score = 11;
     }
+    
 }
 
 std::string Word::getText() const {

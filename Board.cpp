@@ -36,7 +36,8 @@ Board::Board(unsigned short min_in, std::vector<char> letters_in)
             letters[i][j] = letters_in[index++];
         }
     }
-}
+} // Board::Board()
+
 
 // Solves the game and returns the solutions
 Solutions Board::Solve() {
@@ -52,7 +53,8 @@ Solutions Board::Solve() {
     }
     
     return s1;
-}
+} // Board::Solve()
+
 
 // Recursive helper
 void Board::SolveHelper(Dictionary &dict, Solutions &solns, int row, int col, std::string current) {
@@ -79,4 +81,4 @@ void Board::SolveHelper(Dictionary &dict, Solutions &solns, int row, int col, st
             }
         }
     }
-}
+} // Board::SolveHelper()

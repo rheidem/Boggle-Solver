@@ -22,7 +22,6 @@ class Solutions {
     
 private:
     struct Comp {
-        // TODO: fix warnings
         bool operator()(Word const& w1, Word const& w2) {
             if(w1.getScore() != w2.getScore()) {
                 return (w1.getScore() < w2.getScore());
@@ -33,7 +32,10 @@ private:
         }
     };
     
+    // Total Score of every word in the solutions list
     unsigned short totalScore;
+    
+    // Contains words sorted by Comp
     std::set<Word, Comp> wordsSet;
 
     

@@ -20,6 +20,8 @@
 
 class Dictionary {
 private:
+    
+    // Minimum length of words acceptable as answers
     unsigned short minWordSize;
     std::unordered_map<std::string, std::vector<std::string>> dict;
     
