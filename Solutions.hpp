@@ -22,7 +22,7 @@ class Solutions {
     
 private:
     struct Comp {
-        bool operator()(Word const& w1, Word const& w2) {
+        bool operator()(Word const& w1, Word const& w2) const {
             if(w1.getScore() != w2.getScore()) {
                 return (w1.getScore() < w2.getScore());
             }

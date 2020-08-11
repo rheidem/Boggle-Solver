@@ -66,7 +66,7 @@ void Board::SolveHelper(Dictionary &dict, Solutions &solns, int row, int col, st
     if(dict.KeepGoing(current)) {
         
         // Get the new character and add on to the current path
-        char newChar = letters[row][col];
+        char newChar = letters[static_cast<size_t>(row)][static_cast<size_t>(col)];
         string newPath = current + newChar;
         
         if(newPath.length() >= minWordSize) {
@@ -80,15 +80,15 @@ void Board::SolveHelper(Dictionary &dict, Solutions &solns, int row, int col, st
         for(int vert = -1; vert <= 1; vert++) {
             for(int hor = -1; hor <= 1; hor++) {
                 if(row + vert >= 0 && row + vert < 4 && col + hor >= 0 && col + hor < 4 &&
-                   !(vert == 0 && hor == 0) && letters[row + vert][col + hor] != '*') {
+                   !(vert == 0 && hor == 0) && letters[static_cast<size_t>(row + vert)][static_cast<size_t>(col + hor)] != '*') {
                     
                     // Put new letter in the solution path
-                    letters[row][col] = '*';
+                    letters[static_cast<size_t>(row)][static_cast<size_t>(col)] = '*';
                     
                     SolveHelper(dict, solns, row + vert, col + hor, newPath);
                     
                     // Effectively take new letter out of solution path
-                    letters[row][col] = newChar;
+                    letters[static_cast<size_t>(row)][static_cast<size_t>(col)] = newChar;
                 }
             }
         }
