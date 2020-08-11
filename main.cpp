@@ -29,12 +29,11 @@ vector<char> generateBoard() {
     vector<char> board;
     board.reserve(16);  // 4x4 board
     
-    random_device device;
-    mt19937 generator(device());
-    uniform_int_distribution<int> distribution(0,25);
+    srand((unsigned) time(0));
     
+    // get 16 random letters
     for(size_t i = 0; i < 16; ++i) {
-        board.push_back(97 + distribution(generator));
+        board.push_back(97 + (rand() % 26));
     }
     
     return board;
@@ -60,6 +59,7 @@ int main(int argc, char * argv[]) {
     
     // ----------- Actual main to be implemented ----------
     
+    // set default minimum word size to 3
     unsigned short minSize = 3;
     vector<char> letters = generateBoard();
     

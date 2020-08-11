@@ -22,7 +22,8 @@ using namespace std;
 // Constructor
 Board::Board(unsigned short min_in, std::vector<char> letters_in)
 : minWordSize(min_in) {
-    // resize the 2D letters vector
+    
+    // resize the 2D letters vector for a 4x4 board
     letters.reserve(4);
     while(letters.size() < 4) {
         std::vector<char> temp(4,'.');
@@ -41,17 +42,21 @@ Board::Board(unsigned short min_in, std::vector<char> letters_in)
 
 // Solves the game and returns the solutions
 Solutions Board::Solve() {
+    
+    // Create a Dictionary and load in the words
     Dictionary d1(minWordSize);
     d1.Load(cin);
     
     Solutions s1;
     
+    // For each square on the board, solve
     for(int i = 0; i < 4; ++i) {
         for(int j = 0; j < 4; ++j) {
             SolveHelper(d1, s1, i, j, "");
         }
     }
     
+    // return the solutions
     return s1;
 } // Board::Solve()
 
@@ -59,23 +64,30 @@ Solutions Board::Solve() {
 // Recursive helper
 void Board::SolveHelper(Dictionary &dict, Solutions &solns, int row, int col, std::string current) {
     if(dict.KeepGoing(current)) {
+        
+        // Get the new character and add on to the current path
         char newChar = letters[row][col];
         string newPath = current + newChar;
         
         if(newPath.length() >= minWordSize) {
+            // If the word is in the Dictionary and not in the Solutions, add to Solutions
             if(dict.Contains(newPath) && !solns.Contains(newPath)) {
                 solns.Add(newPath);
             }
         }
         
+        // Check surrounding squares that have not yet been looked at
         for(int vert = -1; vert <= 1; vert++) {
             for(int hor = -1; hor <= 1; hor++) {
-                if(row + vert >= 0 && row + vert < 4 &&
-                   col + hor >= 0 && col + hor < 4 &&
-                   !(vert == 0 && hor == 0) &&
-                   letters[row + vert][col + hor] != '*') {
+                if(row + vert >= 0 && row + vert < 4 && col + hor >= 0 && col + hor < 4 &&
+                   !(vert == 0 && hor == 0) && letters[row + vert][col + hor] != '*') {
+                    
+                    // Put new letter in the solution path
                     letters[row][col] = '*';
+                    
                     SolveHelper(dict, solns, row + vert, col + hor, newPath);
+                    
+                    // Effectively take new letter out of solution path
                     letters[row][col] = newChar;
                 }
             }
